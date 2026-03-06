@@ -1,9 +1,33 @@
+import logo from "../../../assets/logo2.png"
 
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+  <>
+  <div className="w-full flex md:justify-between items-center flex-col p-4 gradient-bg-footer">
+    <div className="w-full  flex flex-row  justify-between items-center my-4 ">
+      <div className='flex flex-[0.5] justify-center items-center'>
+        <img src={logo} alt='logo' className='w-50'/>
+      </div>
+      <div className='flex flex-1 justify-evenly items-center flex-wrap sm:mt-0 mt-5 w-full'>
+        <p className='text-white text-base text-center mx-2 cursor-pointer'>Market</p>
+        <p className='text-white text-base text-center mx-2 cursor-pointer'>Exchange</p>
+        <p className='text-white text-base text-center mx-2 cursor-pointer'>Tutorials</p>
+        <p className='text-white text-base text-center mx-2 cursor-pointer'>Wallets</p>
+      </div>
+    </div>
+    <div className='flex justify-center items-center flex-col mt-5'>
+      <p className="text-white text-sm text-center"> Come Join Us</p>
+      <p className="text-white text-sm text-center"> Info@0xishgur.io</p>
+    </div>
+    <div className="sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5 "/>
+    <div className="sm:[90%] w-full flex-col justify-between items-center mt-3">
+       <p className="text-gray-400 text-sm text-center">@Ledgerly 2026</p>
+      <p className="text-gray-400 text-sm text-center">All rights reserved</p>
+    </div>
+  </div>
+  </>
   )
 }
 
-export default Footer;
+export default Footer

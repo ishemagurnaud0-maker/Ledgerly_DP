@@ -97,8 +97,10 @@ return (
                     <BsInfoCircle fontSize={17} color="#fff" />
                   </div>
                   <div>
-                    <p className="text-white font-light text-sm">Address</p>
-                      <p className="text-white font-bold text-sm pd ">
+                    <p className="text-white font-light text-sm">
+                      {currentAccount ? `${currentAccount.slice(0,6)}...${currentAccount.slice(39,42)}`: "Address"}
+                    </p>
+                      <p className="text-white font-bold text-sm pd-1">
                         Ethereum
                       </p>
                     </div>
@@ -126,4 +128,4 @@ return (
   )
 }
 
-export default Welcome
+export default Welcome 
