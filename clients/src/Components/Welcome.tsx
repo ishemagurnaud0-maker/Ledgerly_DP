@@ -27,19 +27,34 @@ className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white bor
 const Welcome = () => {
 const{connectMyWallet} = useContext(TransactionConnect);
 const {currentAccount} = useContext(TransactionConnect);
+const {sendTransaction} = useContext(TransactionConnect);
+const {formData} = useContext(TransactionConnect);
+const {handleChange} = useContext(TransactionConnect);
 
 const [isLoading,setIsLoading] = useState(false);
-const [formData,setFormData] = useState({
-  addressTo: "",
-   amount: "",
-    keyword: "", 
-   message: "" 
-  });
+
 const {addressTo,amount,keyword,message} = formData;
 
- const handleChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
-    setFormData((prevState)=>({...prevState, [name]:e.target.value}));
+
+
+  const handleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if(!addressTo || !amount || !keyword || !message){
+      console.log('Please fill in all fields.');
+      return;
+    }
+    try{
+      setIsLoading(true);
+      await sendTransaction();
+    }catch(err){
+      console.log('Error sending transaction:',err);
+    }
+      finally{
+        setIsLoading(false);
   }
+      
+}
    
 return (
     <>
@@ -108,15 +123,15 @@ return (
                     
               </div>
               <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                  <Input placeholder={"Address To"} name="addressTo" value={addressTo} type="text" onChange={handleChange}/>
-                  <Input placeholder="Amount (ETH)" name="amount" type="number" value={amount} step="0.0001" onChange={handleChange} />
+                  <Input placeholder="Address To" name="addressTo" value={addressTo} type="text" onChange={handleChange}/>
+                  <Input placeholder="Amount (ETH)" name="amount" type="text" value={amount} step="0.0001" onChange={handleChange}/>
                   <Input placeholder="Keyword (Gif)" name="keyword" type="text" value={keyword} onChange={handleChange}  />
                     <Input placeholder="Enter Message" name="message" type="text" value={message} onChange={handleChange} />
                       <div className="h-[1px] w-full bg-gray-400 my-2" />
                   
                   {isLoading ? (
                     <Loader />
-                  ) : (<button type="button" onClick={() => setIsLoading(true)} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer">Send Now</button>)}
+                  ) : (<button type="button" onClick={handleSubmit} className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:border-[#2952e3] rounded-full cursor-pointer">Send Now</button>)}
               </div>
 
             </div>

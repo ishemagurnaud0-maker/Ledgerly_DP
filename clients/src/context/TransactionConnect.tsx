@@ -81,9 +81,17 @@ const getEthereumContract = async() =>{
             //Function to send a transaction to the blockchain
 
             const sendTransaction = async() =>{
+                const {addressTo, amount, keyword, message} = formData;
                 try{
                     if(!window.ethereum) throw new Error ("No Wallet Found,Please install one.");
-                    const {addressTo, amount, keyword, message} = formData;
+                    
+
+                    if(!amount || amount.trim() === '') throw new Error("Amount is required and cannot be empty.");
+                        if(isNaN(Number(amount))) throw new Error("Amount must be a valid number.");
+                        if(Number(amount) <= 0) throw new Error("Amount must be greater than zero.");
+
+
+
                     const transactionContract = await getEthereumContract();
                     const parsedAmount = ethers.parseEther(amount);
 
@@ -111,8 +119,13 @@ const getEthereumContract = async() =>{
                         console.log(`Success - ${transactionHash.hash}`);
 
                 }
-                catch(err){
+                catch(err:any){
+                   if(err.code === 4001){
+                    console.log('Transaction rejected by the user.');
+                   }
+                   else{
                     console.error("Error occurred while sending transaction:",err);
+                   }
                 }
             }
 
