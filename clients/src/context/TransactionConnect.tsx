@@ -75,24 +75,57 @@ const getEthereumContract = async() =>{
                 catch(err){
                     console.error("Error occurred while checking wallet connection:",err);
                 }
-            } 
+            }
+
+            // function to check if a transaction exits
+            
+            const checkIfTransactionExist = async() => {
+                try{
+                    const transactionContract = await getEthereumContract();
+                    const transactionCount = await transactionContract.getTransactionCount();
+
+                    window.localStorage.setItem('transactionCount',transactionCount)
+                }catch(err){}
+            }
+            
+            //Function to check the account balance of the connected wallet
+            const checkAccountBalance = async() =>{
+                try{
+                    if(!window.ethereum) throw new Error ('No wallet found, please install one.')
+                        const provider = new ethers.BrowserProvider(window.ethereum);
+                        const balance = await provider.getBalance(currentAccount);
+                        const balanceInEther = ethers.formatEther(balance);
+                        console.log(`Current account balance: ${balanceInEther} ETH`);
+                }catch(err){
+                    console.log('Error occurred while checking account balance:', err);
+                }
+            }
+
+
 
 
             //Function to send a transaction to the blockchain
 
             const sendTransaction = async() =>{
                 const {addressTo, amount, keyword, message} = formData;
+                const balance = await checkAccountBalance();
+                
                 try{
                     if(!window.ethereum) throw new Error ("No Wallet Found,Please install one.");
                     
-
                     if(!amount || amount.trim() === '') throw new Error("Amount is required and cannot be empty.");
                         if(isNaN(Number(amount))) throw new Error("Amount must be a valid number.");
                         if(Number(amount) <= 0) throw new Error("Amount must be greater than zero.");
+                        
+                        if(!ethers.isAddress(addressTo)) throw new Error("Invalid recipient address.");
+                        if(Number(amount) > Number(balance)){
+                            console.log('Insufficient balance to perform the transaction.');
+                            alert('Insufficient balance to perform the transaction.');
+                            return;
+                        }
 
 
-
-                    const transactionContract = await getEthereumContract();
+                    var transactionContract = await getEthereumContract();
                     const parsedAmount = ethers.parseEther(amount);
 
 
