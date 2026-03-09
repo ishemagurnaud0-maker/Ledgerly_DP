@@ -20,7 +20,7 @@ interface TransactionContextType{
 export const TransactionConnect = React.createContext<TransactionContextType>({} as TransactionContextType);
 
 // Function to get the Ethereum contract instance
-const getEthereumContract = async() =>{
+const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
 
     try{
         const provider = new ethers.BrowserProvider(window.ethereum)
@@ -37,6 +37,7 @@ const getEthereumContract = async() =>{
     return transactionContract;
     } catch(err){
         console.error("Error occurred while connecting to the contract",err);
+        return;
     }
    }
 
@@ -62,15 +63,16 @@ const getEthereumContract = async() =>{
                     if(!window.ethereum) throw new Error ("No Wallet Found,Please install one.");
 
                          const accounts = await window.ethereum.request({method:"eth_accounts"});
-                     if(accounts.length === 0) 
-                      console.log("No accounts connect yet. Please connect your wallet.");
+                     if(accounts.length === 0){
+                         console.log("No accounts connect yet. Please connect your wallet.");
+                            return;
+                     }
+                     else{
+                        setCurrentAccount(accounts[0]);
+                        console.log("Account connected:", accounts[0]);
 
-                setCurrentAccount(accounts[0]);
-                console.log("Account connected:", accounts[0]);
-
-                return;
-            
-
+                     }
+                         return;
         }
                 catch(err){
                     console.error("Error occurred while checking wallet connection:",err);
@@ -82,10 +84,14 @@ const getEthereumContract = async() =>{
             const checkIfTransactionExist = async() => {
                 try{
                     const transactionContract = await getEthereumContract();
+                        if(transactionContract == null) throw new Error('Failed to connect to the contract instance.');
+
                     const transactionCount = await transactionContract.getTransactionCount();
 
                     window.localStorage.setItem('transactionCount',transactionCount)
-                }catch(err){}
+                }catch(err){
+                    console.error("Error occurred while checking transaction existence:",err);
+                }
             }
             
             //Function to check the account balance of the connected wallet
@@ -95,7 +101,9 @@ const getEthereumContract = async() =>{
                         const provider = new ethers.BrowserProvider(window.ethereum);
                         const balance = await provider.getBalance(currentAccount);
                         const balanceInEther = ethers.formatEther(balance);
-                        console.log(`Current account balance: ${balanceInEther} ETH`);
+                        console.log(`Current account balance: ${balanceInEther} ETH`);  
+                        return balanceInEther;
+
                 }catch(err){
                     console.log('Error occurred while checking account balance:', err);
                 }
@@ -125,7 +133,7 @@ const getEthereumContract = async() =>{
                         }
 
 
-                    var transactionContract = await getEthereumContract();
+                    const transactionContract = await getEthereumContract();
                     const parsedAmount = ethers.parseEther(amount);
 
 
