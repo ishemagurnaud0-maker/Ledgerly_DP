@@ -1,6 +1,6 @@
 
 
- const transactions = [
+ const transaction = [
   {
     id:1,
     url:'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDU4ZTNjYjA0ODg5YjE1ZDEwN2E3M2QyMDg0ODg4ZDUxODkzZCZjdD1n/3o7aD2saalBqQqLhK/giphy.gif',
@@ -68,4 +68,4 @@
 ];
 
 
-export default transactions;
+export default transaction;

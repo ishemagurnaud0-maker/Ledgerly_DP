@@ -16,6 +16,10 @@ interface TransactionContextType{
     }
     handleChange:(e: React.ChangeEvent<HTMLInputElement>, name: string) => void;
     sendTransaction: () =>Promise<void>;
+    isLoading: boolean;
+    transactions:any[];
+    
+
 }
 export const TransactionConnect = React.createContext<TransactionContextType>({} as TransactionContextType);
 
@@ -54,8 +58,10 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
         keyword: "",
         message: ""
     });
+    const [transactionCount,setTransactionCount] =useState(localStorage.getItem('transactionCount') || '0');
+    const [transactions,setTransactions] = useState<any[]>([]);
 
-
+// Function to fetch all transactions from the blockchain
            const getAllTransactions = async() => {
             try{
                     if(!window.ethereum) throw new Error ('No Metamask wallet found, please install one.');
@@ -66,9 +72,23 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
                 const availableTransactions = await transactionContract.getAllTransactions();
                 console.log('Available transactions:', availableTransactions);
 
-                const structuredTransactions = availableTransactions.map((transaction:any) => ({}))
+                const structuredTransactions = availableTransactions.map((transaction:any) => ({
+                    addressTo : transaction.receiver,
+                    addressFrom : transaction.sender,
+                    timestamp : new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+                    message : transaction.message,
+                    keyword : transaction.keyword,
+                    amount : parseInt(transaction.amount._hex) / (10 ** 18)
+                }))
+                console.log('Structured transactions:', structuredTransactions);
+                if(structuredTransactions.length === 0){
+                    console.log('No transactions found.');
+                }
+                setTransactions(structuredTransactions);
+
             } catch(err) {
                 console.error("Error occurred while fetching transactions:", err);
+                throw new Error("Failed to fetch transactions");
             }
            } 
 
@@ -79,14 +99,14 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
                          const accounts = await window.ethereum.request({method:"eth_accounts"});
                      if(accounts.length === 0){
                          console.log("No accounts connected yet. Please connect your wallet.");
-                            return;
+                         return;
                      }
-                     else{
+                     
                         setCurrentAccount(accounts[0]);
                         console.log("Account connected:", accounts[0]);
                         getAllTransactions();
-                     }
-                         return;
+                          return;
+                         
         }
                 catch(err){
                     console.error("Error occurred while checking wallet connection:",err);
@@ -113,6 +133,7 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
             const checkAccountBalance = async() =>{
                 try{
                     if(!window.ethereum) throw new Error ('No wallet found, please install one.')
+                        
                         const provider = new ethers.BrowserProvider(window.ethereum);
                         const balance = await provider.getBalance(currentAccount);
                         const balanceInEther = ethers.formatEther(balance);
@@ -205,13 +226,13 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
         checkIfWalletIsConnected();
         checkIfTransactionExist();
          
-    },[])
+    },[transactionCount]);
     
     return(
-        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction}}>{children}</TransactionConnect.Provider>
+        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction,isLoading,transactions}}>{children}</TransactionConnect.Provider>
     )
    };
 
 
    export default TransactionProvider ;
-   export {getEthereumContract};
+   

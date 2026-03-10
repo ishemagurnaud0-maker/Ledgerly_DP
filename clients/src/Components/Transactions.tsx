@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { TransactionConnect } from "../context/TransactionConnect";
-import transactions from "../utils/dummyData";
+//import transaction from "../utils/dummyData";
 import { useState } from "react";
 import { Loader } from "./";
 import useFetch from "../hooks/useFetch";
@@ -47,8 +47,10 @@ return(
 
 const Transactions = () => {
   const {currentAccount} = useContext(TransactionConnect);
+  const {transactions} = useContext(TransactionConnect);
 const [isLoading, setIsLoading] = useState(false);
-  
+
+
 
 
   return (
@@ -62,12 +64,12 @@ const [isLoading, setIsLoading] = useState(false);
         {isLoading && <Loader font-size={35} />}
           
         <div className='flex flex-row justify-center items-center mt-10'>
-          {transactions.reverse().slice(0,3).map((transaction) =>(
+          {transactions.reverse().slice(0,3).map((transaction:any) =>(
             <TransactionCard key={transaction.id} {...transaction}/>
           ))}
         </div>
           <div className='flex flex-row justify-center items-center mt-10'>
-          {transactions.reverse().slice(3,6).map((transaction) =>(
+          {transactions?.reverse().slice(3,6).map((transaction:any) =>(
             <TransactionCard key={transaction.id} {...transaction}/>
             
           ))}
