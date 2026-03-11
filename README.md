@@ -12,6 +12,8 @@
 
 ## 📸 Preview
 
+![alt text](<clients/public/Screenshot 2026-03-11 154510.png>)
+
 > _Connect your MetaMask wallet, send ETH globally, and track your transactions in real time._
 
 ---
