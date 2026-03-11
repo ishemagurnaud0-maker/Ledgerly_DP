@@ -16,11 +16,12 @@ const {setIsLoggedOut} = useContext(TransactionConnect);
 const {connectMyWallet} = useContext(TransactionConnect);
 
 const handleLogout = () => {
+  setIsLoggedOut(false);
   disconnectWallet();
 }
 
 const handleLogin = () => {
-  setIsLoggedOut(false);
+  setIsLoggedOut(true);
   connectMyWallet();
 
 }
