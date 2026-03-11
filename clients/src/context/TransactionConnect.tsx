@@ -19,10 +19,9 @@ interface TransactionContextType{
     isLoading: boolean;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     transactions:any[];
-    isLoggedOut: boolean;
-    setIsLoggedOut: React.Dispatch<React.SetStateAction<boolean>>;
     disconnectWallet: () => void;
     transactionCount:string;
+    isLoggedOut:boolean;
 
     
 
@@ -247,6 +246,7 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
                     setCurrentAccount(accounts[0]);
                     await getAllTransactions();
                     setIsLoggedOut(false);
+
                 }catch(err){
                     console.error("Error occurred while connecting to the wallet:",err);
                 }
@@ -269,7 +269,7 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
     },[]);
     
     return(
-        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction,isLoading,transactions,setIsLoading,isLoggedOut,setIsLoggedOut,disconnectWallet,transactionCount}}>{children}</TransactionConnect.Provider>
+        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction,isLoading,transactions,setIsLoading,disconnectWallet,transactionCount,isLoggedOut}}>{children}</TransactionConnect.Provider>
     )
    };
 
