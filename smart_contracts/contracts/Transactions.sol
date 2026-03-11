@@ -19,14 +19,14 @@ event TransactionAdded(address from, address receiver, uint amount, string messa
 
   TransferStruct[] transactions;
 
-  function addToBlockchain(address payable receiver, uint amount , string memory message, string memory keyword ) public {
+  function addToBlockchain(address payable receiver, uint amount , string memory message, string memory keyword ) public payable {
         TransactionCount += 1;
         transactions.push(TransferStruct(msg.sender, receiver, amount,message, block.timestamp, keyword));
 
        emit TransactionAdded(msg.sender, receiver, amount, message, block.timestamp, keyword); 
   }
 
-  function getAllTransactions() public view returns(TransferStruct[] memory) {
+  function getAllTransactions() public view returns(TransferStruct[] memory) { 
     return transactions;
   }
 

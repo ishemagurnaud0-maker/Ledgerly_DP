@@ -55,6 +55,7 @@ export interface TransactionsInterface extends Interface {
     nameOrSignature:
       | "addToBlockchain"
       | "getAllTransactions"
+      | "getLatestTransaction"
       | "getTransactionCount"
   ): FunctionFragment;
 
@@ -69,6 +70,10 @@ export interface TransactionsInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "getLatestTransaction",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "getTransactionCount",
     values?: undefined
   ): string;
@@ -79,6 +84,10 @@ export interface TransactionsInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getAllTransactions",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getLatestTransaction",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -169,12 +178,18 @@ export interface Transactions extends BaseContract {
       keyword: string
     ],
     [void],
-    "nonpayable"
+    "payable"
   >;
 
   getAllTransactions: TypedContractMethod<
     [],
     [Transactions.TransferStructStructOutput[]],
+    "view"
+  >;
+
+  getLatestTransaction: TypedContractMethod<
+    [],
+    [Transactions.TransferStructStructOutput],
     "view"
   >;
 
@@ -194,7 +209,7 @@ export interface Transactions extends BaseContract {
       keyword: string
     ],
     [void],
-    "nonpayable"
+    "payable"
   >;
   getFunction(
     nameOrSignature: "getAllTransactions"
@@ -203,6 +218,9 @@ export interface Transactions extends BaseContract {
     [Transactions.TransferStructStructOutput[]],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "getLatestTransaction"
+  ): TypedContractMethod<[], [Transactions.TransferStructStructOutput], "view">;
   getFunction(
     nameOrSignature: "getTransactionCount"
   ): TypedContractMethod<[], [bigint], "view">;
