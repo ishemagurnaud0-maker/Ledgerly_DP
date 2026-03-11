@@ -60,11 +60,11 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
         addressTo: "",
         amount: "",
         keyword: "",
-        message: ""
+        message: "",
     });
     const [transactionCount,setTransactionCount] =useState(localStorage.getItem('transactionCount') || '0');
     const [transactions,setTransactions] = useState<any[]>([]);
-    const [isLoggedOut, setIsLoggedOut] = useState<boolean>(false);
+    const [isLoggedOut, setIsLoggedOut] = useState<boolean>(true);
 
 // Function to fetch all transactions from the blockchain
            const getAllTransactions = async() => {
@@ -228,6 +228,7 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
 
                     setCurrentAccount(accounts[0]);
                     await getAllTransactions();
+                    setIsLoggedOut(false);
                 }catch(err){
                     console.error("Error occurred while connecting to the wallet:",err);
                 }
@@ -237,7 +238,6 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
                 setCurrentAccount("");
                 setTransactions([]);
                 setIsLoggedOut(true);
-
             }
 
     useEffect(() =>{

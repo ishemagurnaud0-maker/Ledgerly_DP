@@ -12,19 +12,17 @@ const NavBarItem = ({title}: {title: string})=>{
 
 const {isLoggedOut} = useContext(TransactionConnect);
 const {disconnectWallet} = useContext(TransactionConnect);
-const {setIsLoggedOut} = useContext(TransactionConnect);
 const {connectMyWallet} = useContext(TransactionConnect);
 
+
 const handleLogout = () => {
-  setIsLoggedOut(false);
   disconnectWallet();
 }
 
 const handleLogin = () => {
-  setIsLoggedOut(true);
   connectMyWallet();
-
 }
+
 
 
 const Navbar: React.FC = () => {
