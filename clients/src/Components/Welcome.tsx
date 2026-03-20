@@ -74,28 +74,28 @@ const {addressTo,amount,keyword,message} = formData;
    
 return (
     <>
-      <div className= "w-full justify-center items-center h-auto py-30">
-        <div className="flex-1 flex flex-col justify-center items-center justify-between md:p-20 px-4">
-          <h1 className="text-4xl font-bold text-white text-8xl">Welcome to Ledgerly</h1>
-          <p className=" text-white mt-8 text-3xl">Your decentralized financial platform.</p>
+      <div className= "w-full justify-center items-center h-auto py-10 sm:py-20">
+        <div className="flex-1 flex flex-col justify-center items-center justify-between px-4 sm:px-8 md:px-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center">Welcome to Ledgerly</h1>
+          <p className="text-white mt-4 sm:mt-6 md:mt-8 text-lg sm:text-xl md:text-2xl text-center max-w-2xl">Your decentralized financial platform.</p>
         </div>
-        <div className="flex md:flex-row flex-col justify-between items-start md:p-20 py-12 px-4">
-            <div className="flex-1 flex justify-start flex-col md:ml-45 ">
-              <h1 className="text-4xl sm:text-5xl text-white text-gradient py-8 ">
+        <div className="flex flex-col lg:flex-row justify-between items-start px-4 sm:px-8 md:px-20 py-8 sm:py-12">
+            <div className="flex-1 flex justify-start flex-col w-full lg:w-auto mb-8 lg:mb-0">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl text-white text-gradient py-4 sm:py-6 md:py-8 text-center lg:text-left">
                 Send Crypto  <br/> across continents <br/> easily on Ledgerly.
               </h1>
-              <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-2xl ">Secure and decentralized transactions <br/>powered by blockchain technology.</p>
+              <p className="text-left mt-4 sm:mt-5 text-white font-light w-full text-base sm:text-lg md:text-xl lg:text-2xl text-center lg:text-left">Secure and decentralized transactions <br/>powered by blockchain technology.</p>
 
           {!currentAccount && (<button
               type="button"
               onClick={connectMyWallet}
-              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] hover:bg-[#2546bd] text-white font-size-400 py-2  rounded-full cursor-pointer w-150">
+              className="flex flex-row justify-center items-center mx-auto lg:mx-0 my-4 sm:my-5 bg-[#2952e3] hover:bg-[#2546bd] text-white py-2 px-6 sm:px-8 rounded-full cursor-pointer transition-all duration-200 hover:scale-105">
             
-              <p className="text-white text-base font-semibold">Connect Wallet</p>
+              <p className="text-white text-sm sm:text-base font-semibold">Connect Wallet</p>
             </button>)}
             
 
-            <div className="grid sm:grid-cols-3 grid-cols-2 w-150 mt-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 w-full max-w-sm sm:max-w-md mt-6 sm:mt-8 mx-auto lg:mx-0">
               <div className={`rounded-tl-2xl ${commonStyles}`}>
                 Reliability
               </div>
@@ -118,8 +118,8 @@ return (
 
             </div>
 
-            <div className="flex flex-col flex-1 items-center justify-start w-full md:mt-0 mt-10 ">
-              <div className="p-3 justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card white-glassmorphism">
+            <div className="flex flex-col flex-1 items-center justify-start w-full mt-8 lg:mt-0 lg:ml-8">
+              <div className="p-3 sm:p-4 justify-end items-start flex-col rounded-xl h-40 sm:h-44 w-full max-w-sm sm:max-w-md my-5 eth-card white-glassmorphism">
                 <div className="flex justify-between flex-col w-full h-full">
                   <div className="flex justify-between items-start">
                     <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
@@ -145,7 +145,7 @@ return (
                   </div>
                     
               </div>
-              <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
+              <div className="p-4 sm:p-5 w-full max-w-sm sm:max-w-md flex flex-col justify-start items-center blue-glassmorphism mx-auto lg:mx-0">
                   <Input placeholder="Address To" name="addressTo" value={addressTo} type="text" onChange={handleChange}/>
                   <Input placeholder="Amount (ETH)" name="amount" type="text" value={amount} step="0.0001" onChange={handleChange}/>
                   <Input placeholder="Keyword (Gif)" name="keyword" type="text" value={keyword} onChange={handleChange}  />

@@ -4,26 +4,26 @@ import logo from "../../../assets/logo2.png"
 const Footer = () => {
   return (
   <>
-  <div className="w-full flex md:justify-between items-center flex-col p-4 gradient-bg-footer">
-    <div className="w-full  flex flex-row  justify-between items-center my-4 ">
-      <div className='flex flex-[0.5] justify-center items-center'>
-        <img src={logo} alt='logo' className='w-50'/>
+  <div className="w-full flex justify-center items-center flex-col p-4 sm:p-6 gradient-bg-footer">
+    <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center my-4 space-y-6 lg:space-y-0">
+      <div className='flex justify-center items-center lg:flex-1'>
+        <img src={logo} alt='logo' className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20'/>
       </div>
-      <div className='flex flex-1 justify-evenly items-center flex-wrap sm:mt-0 mt-5 w-full'>
-        <p className='text-white text-base text-center mx-2 cursor-pointer'>Market</p>
-        <p className='text-white text-base text-center mx-2 cursor-pointer'>Exchange</p>
-        <p className='text-white text-base text-center mx-2 cursor-pointer'>Tutorials</p>
-        <p className='text-white text-base text-center mx-2 cursor-pointer'>Wallets</p>
+      <div className='flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 w-full lg:flex-1'>
+        <p className='text-white text-sm sm:text-base text-center cursor-pointer hover:text-blue-400 transition-colors duration-200'>Market</p>
+        <p className='text-white text-sm sm:text-base text-center cursor-pointer hover:text-blue-400 transition-colors duration-200'>Exchange</p>
+        <p className='text-white text-sm sm:text-base text-center cursor-pointer hover:text-blue-400 transition-colors duration-200'>Tutorials</p>
+        <p className='text-white text-sm sm:text-base text-center cursor-pointer hover:text-blue-400 transition-colors duration-200'>Wallets</p>
       </div>
     </div>
-    <div className='flex justify-center items-center flex-col mt-5'>
-      <p className="text-white text-sm text-center"> Come Join Us</p>
-      <p className="text-white text-sm text-center"> Info@0xishgur.io</p>
+    <div className='flex justify-center items-center flex-col mt-6 sm:mt-8 space-y-2'>
+      <p className="text-white text-sm sm:text-base text-center font-medium"> Come Join Us</p>
+      <p className="text-white text-sm sm:text-base text-center opacity-80"> Info@0xishgur.io</p>
     </div>
-    <div className="sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5 "/>
-    <div className="sm:[90%] w-full flex-col justify-between items-center mt-3">
-       <p className="text-gray-400 text-sm text-center">@Ledgerly 2026</p>
-      <p className="text-gray-400 text-sm text-center">All rights reserved</p>
+    <div className="w-full sm:w-[90%] max-w-4xl h-[0.25px] bg-gray-400 mt-6 sm:mt-8"/>
+    <div className="w-full sm:w-[90%] max-w-4xl flex flex-col justify-center items-center mt-4 sm:mt-6 space-y-2">
+       <p className="text-gray-400 text-xs sm:text-sm text-center">@Ledgerly 2026</p>
+      <p className="text-gray-400 text-xs sm:text-sm text-center">All rights reserved</p>
     </div>
   </div>
   </>

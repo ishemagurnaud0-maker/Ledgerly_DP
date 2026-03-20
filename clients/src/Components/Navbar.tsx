@@ -7,11 +7,9 @@ import { BiWallet } from 'react-icons/bi';
 
 const NavBarItem = ({title}: {title: string})=>{
   return(
-    <li className='mx-10 cursor-pointer font-family--apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'>{title}</li>
+    <li className='cursor-pointer text-sm sm:text-base hover:text-blue-400 transition-colors duration-200 font-medium'>{title}</li>
   )
 } 
-
-
 
 
 
@@ -31,28 +29,45 @@ const handleLogin = () => {
 
   return (
     <>
-      <nav className="w-full flex md:justify-center justify-center items-center h-20 pt-4 border-none">
-        <div className="md:flex-[0.9] flex-initial justify-start items-center mr-10 mt-8">
-          <img src={logo} alt="logo" className="w-65 cursor-pointer" />
+      <nav className="w-full flex justify-center items-center h-16 sm:h-20 pt-2 sm:pt-4 border-none px-4">
+        <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
+          <div className="flex-shrink-0">
+            <img src={logo} alt="logo" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 cursor-pointer" />
+          </div>
+          
+          {/* Desktop Navigation */}
+          <ul className="hidden lg:flex text-white list-none items-center gap-4 sm:gap-6 lg:gap-8">
+            {["Market", "Exchange", "Transactions", "Wallets"].map((item, index) => (
+              <NavBarItem key={item + index} title={item} />
+            ))}
+          </ul>
+          
+          {/* Mobile Menu Button - You can add hamburger menu later */}
+          <div className="lg:hidden">
+            <button className="text-white p-2">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+          
+          {/* Connect/Logout Button */}
+          <div className="hidden sm:block">
+            {isLoggedOut ? (
+              <button type="button" onClick={handleLogin} className="flex flex-row justify-center items-center bg-[#2952e3] hover:bg-[#2546bd] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full cursor-pointer transition-all duration-200 text-sm sm:text-base font-medium gap-2">
+                <BiWallet fontSize={18} className="sm:text-xl" />
+                <span className="hidden sm:inline">Connect Wallet</span>
+                <span className="sm:hidden">Connect</span>
+              </button>
+            ) : (
+              <button type="button" onClick={handleLogout} className="flex flex-row justify-center items-center bg-[#2952e3] hover:bg-[#2546bd] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full cursor-pointer transition-all duration-200 text-sm sm:text-base font-medium gap-2">
+                <BiLogOut fontSize={18} className="sm:text-xl" />
+                <span className="hidden sm:inline">Logout</span>
+                <span className="sm:hidden">Out</span>
+              </button>
+            )}
+          </div>
         </div>
-        <ul className="text-white flex list-none  flex-row  items-center flex-initial justify-start mr-40 gap-10">
-          {["Market", "Exchange", "Transactions", "Wallets"].map((item, index) => (
-            <NavBarItem key={item + index} title={item} />
-          ))}
-
-        </ul>
-          {isLoggedOut ? (
-            <button type="button" onClick={handleLogin} className="flex flex-row justify-center items-center my-3 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] text-white font-size-400 mr-10 w-45 gap-3">
-            Connect Wallet
-             {<BiWallet fontSize={21}/>}
-            </button>
-          ) : (
-            <button type="button" onClick={handleLogout} className="flex flex-row justify-center items-center my-3 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] text-white font-size-400 mr-10 px-5 py-3 w-38 gap-3">
-            Logout
-            {<BiLogOut fontSize={21}/>}
-            </button>
-          )}
-
         
       </nav>
       
