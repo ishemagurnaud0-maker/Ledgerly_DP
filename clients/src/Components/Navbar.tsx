@@ -29,10 +29,10 @@ const handleLogin = () => {
 
   return (
     <>
-      <nav className="w-full flex justify-center items-center h-16 sm:h-20 pt-2 sm:pt-4 border-none px-4">
-        <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
+      <nav className="w-full flex justify-center items-center h-16 sm:h-20 md:h-24 lg:h-28 pt-2 sm:pt-4 border-none px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center w-full max-w-7xl mx-auto gap-4 sm:gap-6 lg:gap-8">
           <div className="flex-shrink-0">
-            <img src={logo} alt="logo" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 cursor-pointer" />
+            <img src={logo} alt="logo" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 cursor-pointer object-contain" />
           </div>
           
           {/* Desktop Navigation */}
