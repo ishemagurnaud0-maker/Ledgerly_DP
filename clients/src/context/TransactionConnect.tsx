@@ -22,6 +22,7 @@ interface TransactionContextType{
     disconnectWallet: () => void;
     transactionCount:string;
     isLoggedOut:boolean;
+    checkAccountBalance: () => Promise<string | null>;
 
     
 
@@ -158,12 +159,18 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
                         
                         const provider = new ethers.BrowserProvider(window.ethereum);
                         const balance = await provider.getBalance(currentAccount);
+                            if(!balance) throw new Error('No balance found for the current account.');
+                            
+                            if(balance == null) console.log("Balance is null");
+
+                        console.log("Balance:", balance);
                         const balanceInEther = ethers.formatEther(balance);
                         console.log(`Current account balance: ${balanceInEther} ETH`);  
                         return balanceInEther;
 
                 }catch(err){
                     console.log('Error occurred while checking account balance:', err);
+                    return null;
                 }
             }
 
@@ -269,7 +276,7 @@ const getEthereumContract = async():Promise<ethers.Contract | undefined> =>{
     },[]);
     
     return(
-        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction,isLoading,transactions,setIsLoading,disconnectWallet,transactionCount,isLoggedOut}}>{children}</TransactionConnect.Provider>
+        <TransactionConnect.Provider value={{connectMyWallet,currentAccount,formData,handleChange: (e, name) => setFormData({...formData, [name]: e.target.value}) ,sendTransaction,isLoading,transactions,setIsLoading,disconnectWallet,transactionCount,isLoggedOut,checkAccountBalance}}>{children}</TransactionConnect.Provider>
     )
    };
 

@@ -1,7 +1,7 @@
 
 import { SiEthereum } from "react-icons/si"
 import { BsInfoCircle } from "react-icons/bs"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TransactionConnect } from "../context/TransactionConnect"
 import { useContext } from "react"
 import {Loader} from "./"
@@ -30,8 +30,24 @@ const {currentAccount} = useContext(TransactionConnect);
 const {sendTransaction} = useContext(TransactionConnect);
 const {formData} = useContext(TransactionConnect);
 const {handleChange} = useContext(TransactionConnect);
+const {checkAccountBalance} = useContext(TransactionConnect);
 
-const [isLoading,setIsLoading] = useState(false);
+const [balance, setBalance] = useState<string | null>(null);
+const [isLoading, setIsLoading] = useState(false);
+
+const getBalance = async () => {
+  const accountBalance = await checkAccountBalance();
+  const formattedBalance = accountBalance ? parseFloat(accountBalance).toFixed(4) : null;
+    
+
+  setBalance(formattedBalance);
+};
+
+useEffect(() => {
+  if (currentAccount) {
+    getBalance();
+  }
+}, [currentAccount]);
 
 const {addressTo,amount,keyword,message} = formData;
 
@@ -111,11 +127,18 @@ return (
                     </div>
                     <BsInfoCircle fontSize={17} color="#fff" />
                   </div>
-                  <div>
+                  <div className="p-2">
                     <p className="text-white font-light text-sm">
-                      {currentAccount ? `${currentAccount.slice(0,6)}...${currentAccount.slice(38,42)}`: "Address"}
+                      {currentAccount ? 
+                      <>
+                      <p className="text-white text-lg font-bold">{balance} SepoliaETH</p>
+                      {currentAccount.slice(0,6)}...{currentAccount.slice(38,42)}
+                        
+                      </>
+                      
+                      : "Address"}
                     </p>
-                      <p className="text-white font-bold text-sm pd-1">
+                      <p className="text-white font-bold text-sm pd-1 mt-2">
                         Ethereum
                       </p>
                     </div>
