@@ -7,7 +7,7 @@ const Footer = () => {
   <div className="w-full flex justify-center items-center flex-col p-4 sm:p-6 gradient-bg-footer">
     <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center my-4 space-y-6 lg:space-y-0">
       <div className='flex justify-center items-center lg:flex-1'>
-        <img src={logo} alt='logo' className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 object-contain'/>
+        <img src={logo} alt='logo' className='w-26 h-26 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 object-contain'/>
       </div>
       <div className='flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 w-full lg:flex-1'>
         <p className='text-white text-sm sm:text-base text-center cursor-pointer hover:text-blue-400 transition-colors duration-200'>Market</p>
